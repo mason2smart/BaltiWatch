@@ -21,12 +21,9 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
@@ -106,6 +103,9 @@ public class report extends AppCompatActivity {
             selectToast.show();
 
         }
+
+
+
     }
 
     private void addReport(String type) {
@@ -127,26 +127,7 @@ public class report extends AppCompatActivity {
                         Log.w("something", "Error adding document", e);
                     }
                 });
-        addRewards(50);
     }
-
-    private void addRewards(int points) {
-        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
-        if (usr != null) {
-            String uid = usr.getUid();
-            DocumentReference userRewardsRef = db.collection("Users").document(uid);
-            userRewardsRef.update("rewards", FieldValue.increment(points));
-        }
-    }
-
-//    private void redeemRewards(int points) {
-//        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
-//        if (usr != null) {
-//            String uid = usr.getUid();
-//            DocumentReference userRewardsRef = db.collection("Users").document(uid);
-//            userRewardsRef.update("rewards", FieldValue.increment(points));
-//        }
-//    }
 
     public void toggleTrash(View view) {
         if (trashVal) {
