@@ -23,4 +23,9 @@
     <string name="menu_tools">Tools</string>
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
+    <string name="missing_email">Please Enter Valid Email</string>
+    <string name="missing_pwd">Please Enter Password</string>
+    <string name="minimum_pwd">Min Password Length is 6 Characters</string>
+    <string name="access_denied">Failed to Authenticate</string>
+    <string name="sign_up_fail">Failed to Authenticate</string>
 </resources>
