@@ -33,41 +33,7 @@ public class GalleryFragment extends Fragment {
 
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
 
-        recyclerView = root.findViewById(R.id.reports);
-        setupRecycler();
         return root;
     }
 
-    //set up recyclerview in gallery.java
-    public void setupRecycler() {
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
-        // recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        // Query Firestore
-        Query query = db.collection("Reports");
-
-        FirestoreRecyclerOptions<ReportItem> options = new FirestoreRecyclerOptions.Builder<ReportItem>().setQuery(query, ReportItem.class).build();
-
-        adapter = new FirestoreRecyclerAdapter<ReportItem, ReportViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull ReportViewHolder reportViewHolder, int position, @NonNull ReportItem reportItem) {
-                reportViewHolder.setAttributes(reportItem.getType(), reportItem.getLongitude(), reportItem.getLatitude());
-            }
-
-            @NonNull
-            @Override
-            public ReportViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.report_item, parent, false);
-                return new ReportViewHolder(view);
-            }
-        };
-        recyclerView.setAdapter(adapter);
-        super.onStart();
-        adapter.startListening();
-
-    }
 }
