@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         //btnPwdReset = (Button) findViewById(R.id.btn_reset_password);
 
         auth = FirebaseAuth.getInstance();
-
+        db = FirebaseFirestore.getInstance();
         // if we're already logged in go to the home activity
         if (auth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, report.class));
@@ -152,9 +152,10 @@ public class LoginActivity extends AppCompatActivity {
                                     User.updateProfile(profileUpdates); */
 
                                     //add username to database generated from login email
-                                 //   user.put("userName", userName);
-                                  //  user.put("hasProfPic", false);
-                                  //  db.collection("users").document(auth.getUid()).set(user);
+                                     user.put("userName", userName);
+                                     user.put("hasProfPic", false);
+                                     db.collection("users").document(auth.getUid()).set(user);
+
 
                                     // Add a new document with ID = userID
                                     //db.collection("users").document(auth.getUid()).set(user);

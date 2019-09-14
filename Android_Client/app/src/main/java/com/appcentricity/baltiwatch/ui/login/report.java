@@ -157,7 +157,7 @@ public class report extends AppCompatActivity {
         FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
         if (usr != null) {
             String uid = usr.getUid();
-            DocumentReference userRewardsRef = db.collection("Users").document(uid);
+            DocumentReference userRewardsRef = db.collection("users").document(uid);
             userRewardsRef.update("rewards", FieldValue.increment(points));
         }
     }
@@ -166,7 +166,7 @@ public class report extends AppCompatActivity {
 //        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
 //        if (usr != null) {
 //            String uid = usr.getUid();
-//            DocumentReference userRewardsRef = db.collection("Users").document(uid);
+//            DocumentReference userRewardsRef = db.collection("users").document(uid);
 //            userRewardsRef.update("rewards", FieldValue.increment(points));
 //        }
 //    }

@@ -18,7 +18,7 @@
 
         <RelativeLayout
             android:id="@+id/profileImageLayout"
-            android:layout_width="480dp"
+            android:layout_width="match_parent"
             android:layout_height="fill_parent"
             android:gravity="center|left">
 
@@ -30,9 +30,10 @@
                 android:adjustViewBounds="true"
                 android:clickable="true"
                 android:cropToPadding="false"
+                android:hapticFeedbackEnabled="true"
                 android:maxHeight="250dip"
-                android:scaleType="centerCrop"
 
+                android:scaleType="centerCrop"
                 android:visibility="visible" />
 
             <TextView

@@ -1,5 +1,6 @@
 package com.appcentricity.baltiwatch;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -319,6 +320,7 @@ public class ProfileActivity extends AppCompatActivity {
         fetchProfPic(hasProfPic);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void fetchProfPic(boolean shouldFetch) {
         profPic = findViewById(R.id.profPicView);
         if (shouldFetch) {
