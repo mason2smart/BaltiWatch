@@ -22,9 +22,9 @@
         android:src="@drawable/a7r6245_hdr"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="-1dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
@@ -74,7 +74,7 @@
         android:background="@color/colorPrimary"
         android:clickable="true"
         android:hapticFeedbackEnabled="true"
-        android:minWidth="130dip"
+        android:minWidth="150dp"
         android:text="Sign Up"
         android:textColor="@color/colorAccentDark"
         android:visibility="visible"
@@ -89,10 +89,21 @@
         android:layout_marginEnd="16dp"
         android:background="@color/colorPrimary"
         android:hapticFeedbackEnabled="true"
-        android:minWidth="130dip"
+        android:minWidth="150dp"
         android:text="Log In"
         android:textColor="@color/colorAccentDark"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
+
+    <Button
+        android:id="@+id/btn_reset_password"
+        android:layout_width="142dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="90dp"
+        android:background="@android:color/transparent"
+        android:text="Forgot Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
