@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/colorAccent"
+    android:background="@color/colorAccentDark"
     android:fitsSystemWindows="true"
     tools:context=".ProfileActivity">
 
@@ -91,15 +91,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginTop="5dip"
-                    android:background="@color/colorAccentDark"
+                    android:background="@color/colorPrimaryDark"
                     android:paddingLeft="10dip"
                     android:paddingRight="10dip"
                     android:text="@string/change_uname"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textColorHighlight="@color/colorPrimary"
+                    android:textColorLink="@color/colorPrimary" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColorHint="@color/colorAccent"
+                    app:boxStrokeColor="@color/colorAccent"
                     tools:visibility="gone">
 
                     <EditText
@@ -107,13 +111,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint=""
+                        android:hint="UserName"
                         android:inputType="text"
                         android:textColor="@android:color/white"
+                        android:textColorHighlight="@color/colorAccent"
                         android:textColorHint="@android:color/white"
+                        android:textColorLink="@color/colorAccent"
                         tools:visibility="gone" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <Button
                     android:id="@+id/btn_change_uname_confirm"
                     android:layout_width="wrap_content"
@@ -122,7 +129,7 @@
                     android:layout_marginBottom="5dip"
                     android:background="@color/colorAccentDark"
                     android:text="@string/confirmtxt"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorAccent"
                     tools:visibility="gone" />
 
                 <Button
@@ -130,7 +137,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
                     android:layout_marginTop="5dip"
-                    android:background="@color/colorAccentDark"
+                    android:background="@color/colorPrimaryDark"
                     android:paddingLeft="10dip"
                     android:paddingRight="10dip"
                     android:text="@string/change_password"
@@ -139,6 +146,8 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColorHint="@color/colorAccent"
+                    app:boxStrokeColor="@color/colorAccent"
                     tools:visibility="gone">
 
                     <EditText
@@ -148,12 +157,17 @@
                         android:hint="@string/old_password"
                         android:inputType="textPassword"
                         android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/white" />
+                        android:textColorHighlight="@color/colorAccent"
+                        android:textColorHint="@android:color/white"
+                        android:textColorLink="@color/colorAccent" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textColorHint="@color/colorAccent"
+                    app:boxStrokeColor="@color/colorAccent"
                     tools:visibility="gone">
 
                     <EditText
@@ -165,9 +179,12 @@
                         android:hint="@string/new_password"
                         android:inputType="textPassword"
                         android:textColor="@android:color/white"
-                        android:textColorHint="@android:color/white" />
+                        android:textColorHighlight="@color/colorAccent"
+                        android:textColorHint="@android:color/white"
+                        android:textColorLink="@color/colorAccent" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <Button
                     android:id="@+id/btn_change_pwd_confirm"
                     android:layout_width="wrap_content"
@@ -175,7 +192,7 @@
                     android:layout_marginTop="5dp"
                     android:background="@color/colorAccentDark"
                     android:text="@string/confirmtxt"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorAccent"
                     tools:visibility="gone" />
 
                 <Button
@@ -183,7 +200,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:layout_marginTop="5dip"
-                    android:background="@color/colorAccentDark"
+                    android:background="@color/colorPrimaryDark"
                     android:text="@string/sign_out"
                     android:textColor="@android:color/white" />
 
