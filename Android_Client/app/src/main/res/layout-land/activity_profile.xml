@@ -24,8 +24,8 @@
 
             <RelativeLayout
                 android:id="@+id/profileImageLayout"
-                android:layout_width="480dp"
-                android:layout_height="fill_parent"
+                android:layout_width="460dp"
+                android:layout_height="182dp"
                 android:gravity="center|left">
 
 
@@ -167,7 +167,7 @@
                     android:layout_marginTop="5dip"
                     android:layout_marginBottom="5dip"
                     android:background="@color/colorAccentDark"
-                    android:text="@string/confirm"
+                    android:text="@string/confirmtxt"
                     android:textColor="@android:color/white"
                     tools:visibility="gone" />
 
@@ -208,7 +208,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:background="@color/colorAccentDark"
-                    android:text="@string/confirm"
+                    android:text="@string/confirmtxt"
                     android:textColor="@android:color/white"
                     tools:visibility="gone" />
 
