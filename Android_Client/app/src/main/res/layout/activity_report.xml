@@ -20,6 +20,10 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_report"
-        app:menu="@menu/activity_report_drawer" />
+        app:menu="@menu/activity_report_drawer"
+        android:background="@color/black"
+        app:itemIconTint="@color/colorPrimaryDark"
+        app:itemTextColor="@color/colorPrimary"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

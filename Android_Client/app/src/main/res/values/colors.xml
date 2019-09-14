@@ -5,6 +5,7 @@
     <color name="colorAccent">#47adde</color>
     <color name="colorAccentDark">#1f5d78</color>
     <color name="colorText">#000000</color>
+    <color name="black">#000000</color>
     <color name="desc">#EAEAEA</color>
     <color name="title">#FFFFFF</color>
 </resources>
