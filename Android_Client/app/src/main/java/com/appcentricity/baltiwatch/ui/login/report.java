@@ -129,6 +129,14 @@ public class report extends AppCompatActivity {
                 });
     }
 
+//    private void addRewards(int points) {
+//        DocumentReference ref = db.collection("Rewards").document();
+//        db.collection("Rewards")
+//                .add()
+//    }
+
+//    private void redeemRewards(int points)
+
     public void toggleTrash(View view) {
         if (trashVal) {
             view.setBackgroundColor(Color.LTGRAY);
