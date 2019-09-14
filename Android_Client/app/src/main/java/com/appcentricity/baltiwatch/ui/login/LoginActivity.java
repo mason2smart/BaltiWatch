@@ -158,24 +158,25 @@ public class LoginActivity extends AppCompatActivity {
                                     User.updateProfile(profileUpdates); */
 
                                     //add username to database generated from login email
+                                    user.put("UID", auth.getUid());
                                     user.put("userName", userName);
                                     user.put("hasProfPic", false);
+                                    user.put("rewards", 0);
 
-                                    db.collection("Users")
-                                            .add(user)
-                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                                @Override
-                                                public void onSuccess(DocumentReference documentReference) {
-                                                    Log.d("success", "user added with ID: " + documentReference.getId());
-                                                }
-                                            })
-                                            .addOnFailureListener(new OnFailureListener() {
-                                                @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w("failure", "Error adding user", e);
-                                                }
-                                            });
-                                  //  db.collection("users").document(auth.getUid()).set(user);
+                                    db.collection("Users").document(auth.getUid()).set(user);
+//                                            .add(user)
+//                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                                @Override
+//                                                public void onSuccess(DocumentReference documentReference) {
+//                                                    Log.d("success", "user added with ID: " + documentReference.getId());
+//                                                }
+//                                            })
+//                                            .addOnFailureListener(new OnFailureListener() {
+//                                                @Override
+//                                                public void onFailure(@NonNull Exception e) {
+//                                                    Log.w("failure", "Error adding user", e);
+//                                                }
+//                                            });
 
                                     // Add a new document with ID = userID
                                     //db.collection("users").document(auth.getUid()).set(user);
