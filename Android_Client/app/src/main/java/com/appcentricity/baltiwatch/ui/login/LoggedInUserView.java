@@ -1,4 +1,4 @@
-package com.example.baltiwatch.ui.login;
+package com.appcentricity.baltiwatch.ui.login;
 
 /**
  * Class exposing authenticated user details to the UI.

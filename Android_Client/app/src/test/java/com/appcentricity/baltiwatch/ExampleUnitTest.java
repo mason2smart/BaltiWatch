@@ -1,4 +1,4 @@
-package com.example.baltiwatch;
+package com.appcentricity.baltiwatch;
 
 import org.junit.Test;
 
