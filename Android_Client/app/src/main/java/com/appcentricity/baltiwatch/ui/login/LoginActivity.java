@@ -63,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                startActivity(new Intent(this, report.class));
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the
