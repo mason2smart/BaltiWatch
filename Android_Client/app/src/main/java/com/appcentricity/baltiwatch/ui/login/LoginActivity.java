@@ -3,7 +3,6 @@ package com.appcentricity.baltiwatch.ui.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,13 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.appcentricity.baltiwatch.R;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -142,8 +138,6 @@ public class LoginActivity extends AppCompatActivity {
                                 } else {
                                     // Create a new user in firestore db with uid and email
                                     Map<String, Object> user = new HashMap<>();
-                                    FirebaseFirestore db = FirebaseFirestore.getInstance();;
-
                                     //user.put("email", inputEmail.getText().toString().trim());
 
                                     String userName = createUserName(email); //generate username from email
@@ -158,25 +152,9 @@ public class LoginActivity extends AppCompatActivity {
                                     User.updateProfile(profileUpdates); */
 
                                     //add username to database generated from login email
-                                    user.put("UID", auth.getUid());
-                                    user.put("userName", userName);
-                                    user.put("hasProfPic", false);
-                                    user.put("rewards", 0);
-
-                                    db.collection("Users").document(auth.getUid()).set(user);
-//                                            .add(user)
-//                                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                                @Override
-//                                                public void onSuccess(DocumentReference documentReference) {
-//                                                    Log.d("success", "user added with ID: " + documentReference.getId());
-//                                                }
-//                                            })
-//                                            .addOnFailureListener(new OnFailureListener() {
-//                                                @Override
-//                                                public void onFailure(@NonNull Exception e) {
-//                                                    Log.w("failure", "Error adding user", e);
-//                                                }
-//                                            });
+                                 //   user.put("userName", userName);
+                                  //  user.put("hasProfPic", false);
+                                  //  db.collection("users").document(auth.getUid()).set(user);
 
                                     // Add a new document with ID = userID
                                     //db.collection("users").document(auth.getUid()).set(user);
