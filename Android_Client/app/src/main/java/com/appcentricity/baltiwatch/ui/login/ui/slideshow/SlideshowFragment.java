@@ -54,7 +54,7 @@ public class SlideshowFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<ReportItem, ReportViewHolder>(options) {
             @Override
             protected void onBindViewHolder(@NonNull ReportViewHolder reportViewHolder, int position, @NonNull ReportItem reportItem) {
-                reportViewHolder.setAttributes(reportItem.getType(), reportItem.getLongitude(), reportItem.getLatitude());
+                reportViewHolder.setAttributes(reportItem.getType(), reportItem.getLocation());
             }
 
             @NonNull

@@ -1,29 +1,24 @@
 package com.appcentricity.baltiwatch;
 
-public class ReportItem {
-    private String type;
-    private double longitude;
-    private double latitude;
+import com.google.firebase.firestore.GeoPoint;
 
-    public ReportItem(String type, double longitude, double latitude) {
-        this.type = type;
-        this.longitude = longitude;
-        this.latitude = latitude;
+public class ReportItem {
+    private String Type;
+    private GeoPoint Location;
+
+    public ReportItem(String type, GeoPoint Location) {
+        this.Type = type;
+        this.Location = Location;
     }
 
     public ReportItem(){}
 
     public String getType() {
-        return type;
+        return Type;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public GeoPoint getLocation() {
+        return Location;
     }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
 
 }
