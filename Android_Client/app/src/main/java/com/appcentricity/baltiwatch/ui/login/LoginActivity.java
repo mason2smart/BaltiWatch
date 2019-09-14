@@ -19,7 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private ParallaxView mParallaxView;
     private static final int RC_SIGN_IN = 123;
 
     @Override
@@ -27,6 +27,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         createSignInIntent();
+        mParallaxView = (ParallaxView) findViewById(R.id.parallax_view);
+        mParallaxView.init();
+
     }
 
     public void createSignInIntent() {
@@ -124,5 +127,15 @@ public class LoginActivity extends AppCompatActivity {
                         .build(),
                 RC_SIGN_IN);
         // [END auth_fui_pp_tos]
+    }
+    @Override
+    protected void onResume() {
+        mParallaxView.registerSensorListener();
+        super.onResume();
+    }
+    @Override
+    protected void onPause() {
+        mParallaxView.unregisterSensorListener();
+        super.onPause();
     }
 }
