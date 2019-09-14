@@ -1,4 +1,4 @@
-package com.appcentricity.baltiwatch.ui.login;
+package com.example.baltiwatch.ui.login;
 
 import androidx.annotation.Nullable;
 

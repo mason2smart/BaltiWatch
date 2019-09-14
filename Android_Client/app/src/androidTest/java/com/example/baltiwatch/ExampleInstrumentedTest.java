@@ -1,4 +1,4 @@
-package com.appcentricity.baltiwatch;
+package com.example.baltiwatch;
 
 import android.content.Context;
 

@@ -1,6 +1,6 @@
-package com.appcentricity.baltiwatch.data;
+package com.example.baltiwatch.data;
 
-import com.appcentricity.baltiwatch.data.model.LoggedInUser;
+import com.example.baltiwatch.data.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

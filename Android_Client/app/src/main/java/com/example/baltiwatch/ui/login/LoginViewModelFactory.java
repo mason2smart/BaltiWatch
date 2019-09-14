@@ -1,11 +1,11 @@
-package com.appcentricity.baltiwatch.ui.login;
+package com.example.baltiwatch.ui.login;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import com.appcentricity.baltiwatch.data.LoginDataSource;
-import com.appcentricity.baltiwatch.data.LoginRepository;
+import com.example.baltiwatch.data.LoginDataSource;
+import com.example.baltiwatch.data.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

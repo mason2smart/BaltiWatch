@@ -1,4 +1,4 @@
-package com.appcentricity.baltiwatch.ui.login;
+package com.example.baltiwatch.ui.login;
 
 import android.app.Activity;
 
@@ -22,7 +22,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.appcentricity.baltiwatch.R;
+import com.example.baltiwatch.R;
+import com.example.baltiwatch.ui.login.LoginViewModel;
+import com.example.baltiwatch.ui.login.LoginViewModelFactory;
 
 public class LoginActivity extends AppCompatActivity {
 

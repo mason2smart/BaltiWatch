@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "990229028970",
+    "firebase_url": "https://baltiwatch.firebaseio.com",
+    "project_id": "baltiwatch",
+    "storage_bucket": "baltiwatch.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:990229028970:android:c94162d6083410c6dd2a13",
+        "android_client_info": {
+          "package_name": "com.appcentricity.baltiwatch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "990229028970-lavihu7epl6j902739vp454dveqaia13.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appcentricity.baltiwatch",
+            "certificate_hash": "bc3007d50b9a6c0779255d2d7403f45316fb307b"
+          }
+        },
+        {
+          "client_id": "990229028970-9afg8v0p2hks0ngu7ie3u7lhgg5hom2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFlAndQmT94dvHAAGr4SQdDbAjVOSx6YI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "990229028970-k001shltpu46bmels5q93o878am0g82e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
