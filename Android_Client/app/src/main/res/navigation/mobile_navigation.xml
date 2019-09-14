@@ -3,30 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_report">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_report"
         android:name="com.appcentricity.baltiwatch.ui.login.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="@string/menu_report"
+        tools:layout="@layout/fragment_report" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_neighborhood"
         android:name="com.appcentricity.baltiwatch.ui.login.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_neighborhood"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_verify"
         android:name="com.appcentricity.baltiwatch.ui.login.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_verify"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
-        android:id="@+id/nav_tools"
+        android:id="@+id/nav_rewards"
         android:name="com.appcentricity.baltiwatch.ui.login.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
+        android:label="@string/menu_rewards"
         tools:layout="@layout/fragment_tools" />
 
     <fragment

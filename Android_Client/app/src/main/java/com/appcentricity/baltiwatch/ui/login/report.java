@@ -69,8 +69,8 @@ public class report extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_report, R.id.nav_neighborhood, R.id.nav_rewards,
-                R.id.nav_tools, R.id.nav_share, R.id.nav_send)
+                R.id.nav_report, R.id.nav_neighborhood, R.id.nav_verify,
+                R.id.nav_rewards, R.id.nav_share, R.id.nav_send)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
