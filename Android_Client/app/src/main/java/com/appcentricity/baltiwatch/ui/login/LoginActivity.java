@@ -1,5 +1,6 @@
 package com.appcentricity.baltiwatch.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -30,7 +31,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private Button btnSignUp, btnLogin, btnPwdReset;
     private final int MIN_PWD_LEN = 6;
-    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // if we're already logged in go to the home activity
         if (auth.getCurrentUser() != null) {
-            // startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            startActivity(new Intent(LoginActivity.this, report.class));
             finish();
         }
 
@@ -93,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, getString(R.string.access_denied), Toast.LENGTH_LONG).show();
                                 } else {
-                                    // startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                     startActivity(new Intent(LoginActivity.this, report.class));
                                     finish();
                                 }
                             }
@@ -159,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                     // Add a new document with ID = userID
                                     //db.collection("users").document(auth.getUid()).set(user);
-                                    //  startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                     startActivity(new Intent(LoginActivity.this, report.class));
                                     finish();
                                 }
                             }
