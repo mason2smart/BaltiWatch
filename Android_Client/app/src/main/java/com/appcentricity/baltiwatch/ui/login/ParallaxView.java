@@ -94,7 +94,7 @@ public class ParallaxView extends AppCompatImageView implements SensorEventListe
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            mSensorX = event.values[0]*2;
+            mSensorX = event.values[0]*3;
          //   mSensorY = -event.values[1];
             mSensorY = 0;
             manageSensorValues();
