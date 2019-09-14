@@ -1,19 +1,13 @@
 package com.appcentricity.baltiwatch.ui.login;
 
 import android.graphics.Color;
-import android.location.Location;
 import android.location.LocationManager;
 import android.media.Image;
 import android.os.Bundle;
 
 import com.appcentricity.baltiwatch.R;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -27,9 +21,12 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
@@ -47,7 +44,6 @@ import org.w3c.dom.Document;
 
 import java.util.HashMap;
 import java.util.Map;
-import com.google.android.gms.location.FusedLocationProviderClient;
 
 public class report extends AppCompatActivity {
 
@@ -56,15 +52,8 @@ public class report extends AppCompatActivity {
     DatabaseReference myRef;
     LocationManager locationManager;
     boolean trashVal = false;
-    // private FusedLocationProviderClient fusedLocationClient = LocationServices.getFusedLocationProviderClient(report.this);;
-    private FusedLocationProviderClient fusedLocationClient;
-    private LocationCallback locationCallback;
-    Map<String, Object> Report;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -93,25 +82,7 @@ public class report extends AppCompatActivity {
 
         trashVal = false;
         db = FirebaseFirestore.getInstance();
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        // System.out.println("test");
-        locationCallback = new LocationCallback() {
-
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    // Update UI with location data
-                    // ...
-                    addReport("trash");
-                }
-            };
-        };
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -135,52 +106,47 @@ public class report extends AppCompatActivity {
             selectToast.show();
 
         }
-
-
-
     }
 
-    private void addReport(final String type) {
-        Report = new HashMap<>();
-
-        // Task<Location> loc = fusedLocationClient.getLastLocation();
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(report.this, new OnSuccessListener<Location>() {
+    private void addReport(String type) {
+        Map<String, Object> Report = new HashMap<>();
+        Report.put("Type", type);
+        Report.put("Location", new GeoPoint(1.0, 1.0));
+        DocumentReference ref = db.collection("Reports").document();
+        db.collection("Reports")
+                .add(Report)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-
-                            Report.put("Type", type);
-                            Report.put("Location", new GeoPoint(location.getLatitude(), location.getLongitude()));
-                            Log.d("STATE", Report.toString());
-                        } else {
-                            Report.put("Type", type);
-                            Report.put("Location", new GeoPoint(23.0, 23.0));
-                        }
-
-                        DocumentReference ref = db.collection("Reports").document();
-                        db.collection("Reports")
-                                .add(Report)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Log.d("something", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w("something", "Error adding document", e);
-                                    }
-                                });
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("something", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("something", "Error adding document", e);
                     }
                 });
-
-
-
+        addRewards(50);
     }
+
+    private void addRewards(int points) {
+        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
+        if (usr != null) {
+            String uid = usr.getUid();
+            DocumentReference userRewardsRef = db.collection("Users").document(uid);
+            userRewardsRef.update("rewards", FieldValue.increment(points));
+        }
+    }
+
+//    private void redeemRewards(int points) {
+//        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
+//        if (usr != null) {
+//            String uid = usr.getUid();
+//            DocumentReference userRewardsRef = db.collection("Users").document(uid);
+//            userRewardsRef.update("rewards", FieldValue.increment(points));
+//        }
+//    }
 
     public void toggleTrash(View view) {
         if (trashVal) {
