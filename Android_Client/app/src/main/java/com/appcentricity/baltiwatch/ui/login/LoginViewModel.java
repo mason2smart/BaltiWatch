@@ -1,4 +1,4 @@
-package com.example.baltiwatch.ui.login;
+package com.appcentricity.baltiwatch.ui.login;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-import com.example.baltiwatch.data.LoginRepository;
-import com.example.baltiwatch.data.Result;
-import com.example.baltiwatch.data.model.LoggedInUser;
-import com.example.baltiwatch.R;
+import com.appcentricity.baltiwatch.data.LoginRepository;
+import com.appcentricity.baltiwatch.data.Result;
+import com.appcentricity.baltiwatch.data.model.LoggedInUser;
+import com.appcentricity.baltiwatch.R;
 
 public class LoginViewModel extends ViewModel {
 

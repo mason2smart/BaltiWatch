@@ -1,6 +1,6 @@
-package com.example.baltiwatch.data;
+package com.appcentricity.baltiwatch.data;
 
-import com.example.baltiwatch.data.model.LoggedInUser;
+import com.appcentricity.baltiwatch.data.model.LoggedInUser;
 
 import java.io.IOException;
 
