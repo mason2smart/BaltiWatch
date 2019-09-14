@@ -1,46 +1,39 @@
 package com.appcentricity.baltiwatch.ui.login;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.LocationManager;
-import android.media.Image;
 import android.os.Bundle;
-
-import com.appcentricity.baltiwatch.R;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.appcentricity.baltiwatch.ProfileActivity;
+import com.appcentricity.baltiwatch.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.Menu;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
-import org.w3c.dom.Document;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +75,37 @@ public class report extends AppCompatActivity {
 
         trashVal = false;
         db = FirebaseFirestore.getInstance();
-    }
+
+        //inflate header to access elements
+        View header = navigationView.getHeaderView(0);
+        TextView navUname = (TextView) header.findViewById(R.id.navUname);
+        TextView navEmail = header.findViewById(R.id.navUemail);
+        ImageView navProfPic = header.findViewById(R.id.navUserPic);
+
+
+        navProfPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(report.this, ProfileActivity.class));
+                finish();
+            }
+        });
+        navUname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(report.this, ProfileActivity.class));
+                finish();
+            }
+        });
+        navEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(report.this, ProfileActivity.class));
+                finish();
+            }
+        });
+
+            }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
