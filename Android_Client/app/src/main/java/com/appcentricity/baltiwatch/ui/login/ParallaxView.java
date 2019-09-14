@@ -15,7 +15,7 @@ import static android.content.Context.SENSOR_SERVICE;
 public class ParallaxView extends AppCompatImageView implements SensorEventListener {
 
     private static final int DEFAULT_SENSOR_DELAY = SensorManager.SENSOR_DELAY_FASTEST;
-    public static final int DEFAULT_MOVEMENT_MULTIPLIER = 3;
+    public static final int DEFAULT_MOVEMENT_MULTIPLIER = 8;
     public static final int DEFAULT_MIN_MOVED_PIXELS = 1;
     private static final float DEFAULT_MIN_SENSIBILITY = 0;
 
@@ -94,7 +94,7 @@ public class ParallaxView extends AppCompatImageView implements SensorEventListe
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            mSensorX = event.values[0]*3;
+            mSensorX = event.values[0];
          //   mSensorY = -event.values[1];
             mSensorY = 0;
             manageSensorValues();
