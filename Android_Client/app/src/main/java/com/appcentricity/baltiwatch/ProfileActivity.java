@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.appcentricity.baltiwatch.ui.login.LoginActivity;
+import com.appcentricity.baltiwatch.ui.login.report;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -581,4 +582,9 @@ public class ProfileActivity extends AppCompatActivity {
             auth.removeAuthStateListener(authListener);
         }
     }
+
+    @Override
+    public void onBackPressed() { //so cannot get back in after signing out
+        startActivity(new Intent(ProfileActivity.this, report.class));
+        finish();    }
 }

@@ -4,11 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.Task;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -29,8 +24,13 @@ import androidx.navigation.ui.NavigationUI;
 import com.appcentricity.baltiwatch.ProfileActivity;
 import com.appcentricity.baltiwatch.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,9 +38,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,13 +51,20 @@ public class report extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseFirestore db;
+    FirebaseAuth auth;
+    private FirebaseStorage cloudStorage = FirebaseStorage.getInstance();
     DatabaseReference myRef;
     LocationManager locationManager;
     boolean trashVal = false;
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
     Map<String, Object> Report;
-
+    View header;
+    TextView navUname;
+    TextView navEmail;
+    ImageView navProfPic;
+    String userName="";
+    boolean hasProfPic = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +72,10 @@ public class report extends AppCompatActivity {
         setContentView(R.layout.activity_report);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        db = FirebaseFirestore.getInstance();
+        auth = FirebaseAuth.getInstance();
+
         FloatingActionButton fab = findViewById(R.id.fab);
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -86,7 +99,6 @@ public class report extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         trashVal = false;
-        db = FirebaseFirestore.getInstance();
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -209,7 +221,33 @@ public class report extends AppCompatActivity {
             userRewardsRef.update("rewards", FieldValue.increment(points));
         }
     }
+    private void loadUserData(){
 
+        try {
+            db.document("users/"+auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc.contains("hasProfPic")) {
+                        hasProfPic = doc.getBoolean("hasProfPic");
+                    }
+                    if (doc.contains("userName")) {
+                        userName = doc.getString("userName");
+                    }
+            }
+    });}
+    catch(NullPointerException e)
+            {
+                userName = auth.getUid();
+            }
+        if(hasProfPic){
+            
+        }
+        else
+        {
+
+        }
+    }
 //    private void redeemRewards(int points) {
 //        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
 //        if (usr != null) {
