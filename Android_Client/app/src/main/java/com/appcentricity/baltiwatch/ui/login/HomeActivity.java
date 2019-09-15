@@ -2,6 +2,7 @@ package com.appcentricity.baltiwatch.ui.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -91,7 +94,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        checkLocPermission();
         db = FirebaseFirestore.getInstance();
         auth = FirebaseAuth.getInstance();
 
@@ -462,6 +465,13 @@ catch (NullPointerException e)
             biohazard.setImageResource(R.drawable.biohazard);
             trashImage.setImageResource(R.drawable.trash_b);
             trashVal = false;
+        }
+    }
+
+    public void checkLocPermission(){
+        final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 11;
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_ACCESS_COARSE_LOCATION);
         }
     }
 
