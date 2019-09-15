@@ -43,6 +43,7 @@ import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
@@ -216,6 +217,7 @@ public class report extends AppCompatActivity {
         if (usr != null) {
             String uid = usr.getUid();
             DocumentReference userRewardsRef = db.collection("users").document(uid);
+            userRewardsRef.update("rewards", FieldValue.increment(points));
         }
     }
 
