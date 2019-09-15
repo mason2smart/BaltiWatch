@@ -26,7 +26,6 @@ import com.google.firebase.firestore.Query;
 
 public class SlideshowFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
     RecyclerView recyclerView;
     private FirestoreRecyclerAdapter<ReportItem, ReportViewHolder> adapter;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();

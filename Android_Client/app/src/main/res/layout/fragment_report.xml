@@ -6,12 +6,12 @@
     android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/test"
+        android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:onClick="test"
-        android:text="Button"
+        android:text="submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -23,10 +23,11 @@
         android:layout_height="142dp"
         android:layout_marginTop="32dp"
         android:onClick="toggleTrash"
+        android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trash6x" />
+        app:srcCompat="@drawable/trash" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

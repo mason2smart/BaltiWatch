@@ -4,19 +4,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
-import org.w3c.dom.Text;
-
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 public class ReportViewHolder extends RecyclerView.ViewHolder {
-    private View itemViews;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     public ReportViewHolder(View itemView) {
         super(itemView);
