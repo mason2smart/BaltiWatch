@@ -81,7 +81,8 @@ public class report extends AppCompatActivity {
     TextView rewardsPts;
     ImageButton biohazard;
     ImageButton trashImage;
-
+    int active = Color.argb(0, 71 ,  173, 222);
+    int inactive = Color.argb(0, 173, 70, 1);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,7 +167,7 @@ public class report extends AppCompatActivity {
             }
         });
 
-            }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -373,11 +374,11 @@ catch (NullPointerException e)
         biohazard = findViewById(R.id.biohazard);
         custom = findViewById(R.id.custom);
         if (trashVal) {
-            view.setBackgroundColor(Color.LTGRAY);
+            view.setBackgroundColor(Color.argb(0, 173, 70, 1));
         } else {
-            view.setBackgroundColor(Color.GREEN);
+            view.setBackgroundColor(Color.argb(0, 71 ,  173, 222));
             bioHazard = false;
-            biohazard.setBackgroundColor(Color.LTGRAY);
+            biohazard.setBackgroundColor(Color.argb(0, 173, 70, 1));
             customActive = false;
         }
         trashVal = !trashVal;
@@ -390,11 +391,12 @@ catch (NullPointerException e)
         custom = findViewById(R.id.custom);
 
         if (bioHazard) {
-            view.setBackgroundColor(Color.LTGRAY);
+            view.setBackgroundColor(Color.argb(0, 173, 70, 1));
         } else {
-            view.setBackgroundColor(Color.GREEN);
+
+            view.setBackgroundColor(Color.argb(0, 71 ,  173, 222));
             trashVal = false;
-            trashImage.setBackgroundColor(Color.LTGRAY);
+            trashImage.setBackgroundColor(Color.argb(0, 173, 70, 1));
             customActive = false;
             custom.setActivated(false);
         }
@@ -408,9 +410,9 @@ catch (NullPointerException e)
         if (!customActive) {
             customActive = true;
             bioHazard = false;
-            biohazard.setBackgroundColor(Color.LTGRAY);
+            biohazard.setBackgroundColor(Color.argb(1, 173, 70, 1));
             trashVal = false;
-            trashImage.setBackgroundColor(Color.LTGRAY);
+            trashImage.setBackgroundColor(Color.argb(1, 173, 70, 1));
         }
     }
 

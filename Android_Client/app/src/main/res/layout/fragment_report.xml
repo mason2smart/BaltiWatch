@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorAccentDarker">
 
     <Button
         android:id="@+id/submit"
@@ -19,6 +20,7 @@
 
     <ImageButton
         android:id="@+id/trashImage"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="154dp"
         android:layout_height="142dp"
         android:layout_marginTop="32dp"
@@ -32,6 +34,7 @@
 
     <ImageButton
         android:id="@+id/biohazard"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
