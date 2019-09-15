@@ -154,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                                     //add username to database generated from login email
                                      user.put("userName", userName);
                                      user.put("hasProfPic", false);
+                                     user.put("rewards",0);
                                      db.collection("users").document(auth.getUid()).set(user);
 
 

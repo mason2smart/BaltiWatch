@@ -39,10 +39,12 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
@@ -66,7 +68,7 @@ public class report extends AppCompatActivity {
     Map<String, Object> Report;
     View header;
     TextView navUname;
-    TextView navEmail;
+    TextView navRewards;
     ImageView navProfPic;
     StorageReference profPicRef;
     String userName = "";
@@ -127,9 +129,10 @@ public class report extends AppCompatActivity {
         //inflate header to access elements
         header = navigationView.getHeaderView(0);
         navUname = (TextView) header.findViewById(R.id.navUname);
-        navEmail = header.findViewById(R.id.navUemail);
+        navRewards = header.findViewById(R.id.navUemail);
         navProfPic = header.findViewById(R.id.navUserPic);
         loadUserNavData();
+        updateRewards();
 
 
         navProfPic.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +149,7 @@ public class report extends AppCompatActivity {
                 finish();
             }
         });
-        navEmail.setOnClickListener(new View.OnClickListener() {
+        navRewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(report.this, ProfileActivity.class));
@@ -213,8 +216,32 @@ public class report extends AppCompatActivity {
         if (usr != null) {
             String uid = usr.getUid();
             DocumentReference userRewardsRef = db.collection("users").document(uid);
-            userRewardsRef.update("rewards", FieldValue.increment(points));
         }
+    }
+
+    public void updateRewards() {
+       try {
+           final DocumentReference docRef = db.collection("users").document(auth.getUid());
+           docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+               @Override
+               public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                   @Nullable FirebaseFirestoreException e) {
+                   if (e != null) {
+                       Log.w("report", "Listen failed.", e);
+                       return;
+                   }
+
+                   if (snapshot != null && snapshot.exists()) { //update rewards on change
+                       navRewards.setText("Rewards Points: " + snapshot.getDouble("rewards").intValue() + " pts");
+                   } else {
+                       Log.d("report", "Current data: null");
+                   }
+               }
+           });
+       }
+       catch (NullPointerException e){
+            Log.e("report", "ERROR UPDATING REWARDS: "+e.toString());
+       }
     }
     private void loadUserNavData(){
 try{
@@ -227,6 +254,9 @@ try{
                     }
                     if (doc.contains("userName")) {
                         navUname.setText(doc.getString("userName"));
+                    }
+                     if (doc.contains("rewards")) {
+                        navRewards.setText("Rewards Points: " + doc.getDouble("rewards").intValue()+" pts");
                     }
             }
     });}
@@ -274,7 +304,7 @@ catch (NullPointerException e)
                                             public void onFailure(@NonNull Exception exception) {
                                                 Log.w("report", "Failed to get uncompressed pic -- using default instead");
 
-                                                int defProfPic = getResources().getIdentifier("defaultuser", "drawable", getPackageName());
+                                                int defProfPic = getResources().getIdentifier("defaultuser_trimmed", "drawable", getPackageName());
                                                 navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
                                             }
                                         });
@@ -295,7 +325,7 @@ catch (NullPointerException e)
                                     public void onFailure(@NonNull Exception exception) {
                                         Log.w("report", "Failed to get uncompressed pic -- using default instead");
 
-                                        int defProfPic = getResources().getIdentifier("defaultuser", "drawable", getPackageName());
+                                        int defProfPic = getResources().getIdentifier("defaultuser_trimmed", "drawable", getPackageName());
                                         navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
                                     }
                                 });
@@ -307,7 +337,7 @@ catch (NullPointerException e)
         else if(!hasProfPic)
         {
             Log.w("report", "has prof pic? "+hasProfPic);
-            int defProfPic = getResources().getIdentifier("defaultuser", "drawable", getPackageName());
+            int defProfPic = getResources().getIdentifier("defaultuser_trimmed", "drawable", getPackageName());
             navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
         }
         }
@@ -336,5 +366,6 @@ catch (NullPointerException e)
     public void onResume() {
         loadUserNavData();
         super.onResume();
+        updateRewards();
     }
 }

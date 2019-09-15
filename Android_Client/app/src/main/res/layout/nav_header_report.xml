@@ -14,8 +14,9 @@
 
     <ImageView
         android:id="@+id/navUserPic"
-        android:layout_width="120dp"
+        android:layout_width="136dp"
         android:layout_height="95dp"
+        android:alpha=".8"
         android:clickable="true"
         android:contentDescription="@string/nav_header_desc"
         android:fadingEdge="horizontal|vertical"
@@ -36,6 +37,6 @@
         android:id="@+id/navUemail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nav_header_subtitle" />
+        android:text="@string/menu_rewards" />
 
 </LinearLayout>
