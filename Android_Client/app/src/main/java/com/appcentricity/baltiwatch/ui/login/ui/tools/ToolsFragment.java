@@ -4,32 +4,63 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.appcentricity.baltiwatch.R;
+import com.appcentricity.baltiwatch.RewardItem;
+import com.appcentricity.baltiwatch.RewardViewHolder;
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class ToolsFragment extends Fragment {
 
     private ToolsViewModel toolsViewModel;
-
+    RecyclerView recyclerView;
+    private FirestoreRecyclerAdapter<RewardItem, RewardViewHolder> adapter;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        toolsViewModel =
-                ViewModelProviders.of(this).get(ToolsViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_tools, container, false);
-        final TextView textView = root.findViewById(R.id.text_tools);
-        toolsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+        recyclerView = root.findViewById(R.id.rewards);
+        setupRecyclerView();
+
         return root;
     }
+
+    public void setupRecyclerView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        Query query = db.collection("Rewards");
+
+        FirestoreRecyclerOptions<RewardItem> options = new FirestoreRecyclerOptions.Builder<RewardItem>().setQuery(query, RewardItem.class).build();
+
+
+        adapter = new FirestoreRecyclerAdapter<RewardItem, RewardViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull RewardViewHolder rewardViewHolder, int position, @NonNull RewardItem rewardItem) {
+                rewardViewHolder.setAttributes(rewardItem.getCost(), rewardItem.getRewardTitle());
+
+            }
+
+
+            @NonNull
+            @Override
+            public RewardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.reward_item, parent, false);
+                return new RewardViewHolder(view);
+            }
+        };
+        recyclerView.setAdapter(adapter);
+        super.onStart();
+        adapter.startListening();
+    }
+
 }
