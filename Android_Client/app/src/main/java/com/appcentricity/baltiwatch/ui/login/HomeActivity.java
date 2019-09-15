@@ -182,8 +182,14 @@ public class HomeActivity extends AppCompatActivity {
         } else if (bioHazard) {
             addReport("biohazard");
         } else if (customActive) {
-            custom = (TextView) findViewById(R.id.custom);
+            custom = findViewById(R.id.custom);
+            String customIss = custom.getText().toString();
+            if (customIss.length()>=3)
             addReport(custom.getText().toString());
+            else {
+                Toast.makeText(this, "Please Describe Custom Issue", Toast.LENGTH_LONG)
+                        .show();
+            }
         } else {
             Toast selectToast = Toast.makeText(this, "Select An Issue", Toast.LENGTH_LONG);
             selectToast.show();
