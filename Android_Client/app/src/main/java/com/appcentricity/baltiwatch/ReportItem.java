@@ -5,10 +5,16 @@ import com.google.firebase.firestore.GeoPoint;
 public class ReportItem {
     private String Type;
     private GeoPoint Location;
+    private String Id;
 
-    public ReportItem(String type, GeoPoint Location) {
+    public String getId() {
+        return Id;
+    }
+
+    public ReportItem(String type, GeoPoint Location, String Id) {
         this.Type = type;
         this.Location = Location;
+        this.Id = Id;
     }
 
     public ReportItem(){}

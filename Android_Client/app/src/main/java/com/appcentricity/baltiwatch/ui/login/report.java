@@ -182,7 +182,7 @@ public class report extends AppCompatActivity {
 
     private void addReport(final String type) {
         Report = new HashMap<>();
-
+        Report.put("Id", "dummy");
         // Task<Location> loc = fusedLocationClient.getLastLocation();
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(report.this, new OnSuccessListener<Location>() {
@@ -199,22 +199,10 @@ public class report extends AppCompatActivity {
                             Report.put("Type", type);
                             Report.put("Location", new GeoPoint(23.0, 23.0));
                         }
-
                         DocumentReference ref = db.collection("Reports").document();
-                        db.collection("Reports")
-                                .add(Report)
-                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                    @Override
-                                    public void onSuccess(DocumentReference documentReference) {
-                                        Log.d("something", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w("something", "Error adding document", e);
-                                    }
-                                });
+                        Report.put("Id", ref.getId());
+                        ref.set(Report);
+
                     }
                 });
         addRewards(50);

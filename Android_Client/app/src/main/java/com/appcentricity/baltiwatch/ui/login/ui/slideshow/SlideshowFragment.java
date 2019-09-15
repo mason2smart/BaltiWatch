@@ -19,6 +19,8 @@ import com.appcentricity.baltiwatch.ReportItem;
 import com.appcentricity.baltiwatch.ReportViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -53,8 +55,8 @@ public class SlideshowFragment extends Fragment {
 
         adapter = new FirestoreRecyclerAdapter<ReportItem, ReportViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull ReportViewHolder reportViewHolder, int position, @NonNull ReportItem reportItem) {
-                reportViewHolder.setAttributes(reportItem.getType(), reportItem.getLocation());
+            protected void onBindViewHolder(@NonNull final ReportViewHolder reportViewHolder, int position, @NonNull ReportItem reportItem) {
+                reportViewHolder.setAttributes(reportItem.getType(), reportItem.getLocation(), reportItem.getId());
             }
 
             @NonNull
