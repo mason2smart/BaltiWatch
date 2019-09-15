@@ -322,6 +322,7 @@ catch (NullPointerException e)
             int defProfPic = getResources().getIdentifier("defaultuser", "drawable", getPackageName());
             navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
         }
+        }
 //    private void redeemRewards(int points) {
 //        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
 //        if (usr != null) {
