@@ -179,13 +179,20 @@ public class HomeActivity extends AppCompatActivity {
 
         if (trashVal) {
             addReport("trash");
+            Toast.makeText(this, "Successfully Reported Issue", Toast.LENGTH_LONG)
+                    .show();
         } else if (bioHazard) {
             addReport("biohazard");
+            Toast.makeText(this, "Successfully Reported Issue", Toast.LENGTH_LONG)
+                    .show();
         } else if (customActive) {
             custom = findViewById(R.id.custom);
             String customIss = custom.getText().toString();
-            if (customIss.length()>=3)
-            addReport(custom.getText().toString());
+            if (customIss.length()>=3) {
+                addReport(custom.getText().toString());
+                Toast.makeText(this, "Successfully Reported Issue", Toast.LENGTH_LONG)
+                        .show();
+            }
             else {
                 Toast.makeText(this, "Please Describe Custom Issue", Toast.LENGTH_LONG)
                         .show();
