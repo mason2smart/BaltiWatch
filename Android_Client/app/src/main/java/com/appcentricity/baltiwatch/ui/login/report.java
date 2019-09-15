@@ -370,4 +370,8 @@ catch (NullPointerException e)
         super.onResume();
         updateRewards();
     }
+    @Override
+    public void onBackPressed() { //so cannot get back in after signing out
+        //do nothing
+    }
 }
