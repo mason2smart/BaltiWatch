@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,6 +78,7 @@ public class report extends AppCompatActivity {
     String userName = "";
     boolean hasProfPic = true;
     TextView custom;
+    TextView rewardsPts;
     ImageButton biohazard;
     ImageButton trashImage;
 
@@ -139,6 +139,7 @@ public class report extends AppCompatActivity {
         navUname = (TextView) header.findViewById(R.id.navUname);
         navRewards = header.findViewById(R.id.navUemail);
         navProfPic = header.findViewById(R.id.navUserPic);
+        rewardsPts = findViewById(R.id.numPoints);
         loadUserNavData();
         updateRewards();
 
@@ -246,6 +247,8 @@ public class report extends AppCompatActivity {
 
                    if (snapshot != null && snapshot.exists()) { //update rewards on change
                        navRewards.setText("Rewards Points: " + snapshot.getDouble("rewards").intValue() + " pts");
+                       if (rewardsPts != null)
+                       rewardsPts.setText("Rewards Points: " + snapshot.getDouble("rewards").intValue() + " pts");
                    } else {
                        Log.d("report", "Current data: null");
                    }
