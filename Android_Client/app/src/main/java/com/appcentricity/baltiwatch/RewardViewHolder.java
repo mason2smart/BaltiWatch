@@ -1,11 +1,8 @@
 package com.appcentricity.baltiwatch;
 
-import android.content.DialogInterface;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +17,6 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Map;
-
-import static com.firebase.ui.auth.AuthUI.getApplicationContext;
-
 
 public class RewardViewHolder extends RecyclerView.ViewHolder {
     TextView thisCost;

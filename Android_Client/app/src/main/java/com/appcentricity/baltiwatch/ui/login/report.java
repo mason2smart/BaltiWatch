@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,7 +65,9 @@ public class report extends AppCompatActivity {
     private FirebaseStorage cloudStorage = FirebaseStorage.getInstance();
     DatabaseReference myRef;
     LocationManager locationManager;
-    boolean trashVal = false;
+    private boolean trashVal = false;
+    private boolean bioHazard = false;
+    private boolean customActive = false;
     private FusedLocationProviderClient fusedLocationClient;
     private LocationCallback locationCallback;
     Map<String, Object> Report;
@@ -74,6 +78,9 @@ public class report extends AppCompatActivity {
     StorageReference profPicRef;
     String userName = "";
     boolean hasProfPic = true;
+    TextView custom;
+    ImageButton biohazard;
+    ImageButton trashImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,14 +180,18 @@ public class report extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-    public void test(View view) {
+    public void submit(View view) {
 
         if (trashVal) {
             addReport("trash");
+        } else if (bioHazard) {
+            addReport("biohazard");
+        } else if (customActive) {
+            custom = (TextView) findViewById(R.id.custom);
+            addReport(custom.getText().toString());
         } else {
             Toast selectToast = Toast.makeText(this, "need to select  a type", Toast.LENGTH_LONG);
             selectToast.show();
-
         }
     }
 
@@ -356,14 +367,51 @@ catch (NullPointerException e)
     view.setImageBitmap(bitmap);
     }
     public void toggleTrash(View view) {
+        biohazard = findViewById(R.id.biohazard);
+        custom = findViewById(R.id.custom);
         if (trashVal) {
             view.setBackgroundColor(Color.LTGRAY);
         } else {
             view.setBackgroundColor(Color.GREEN);
+            bioHazard = false;
+            biohazard.setBackgroundColor(Color.LTGRAY);
+            customActive = false;
         }
         trashVal = !trashVal;
+        custom.setActivated(false);
 
     }
+
+    public void toggleBioHazzard(View view) {
+        trashImage = findViewById(R.id.trashImage);
+        custom = findViewById(R.id.custom);
+
+        if (bioHazard) {
+            view.setBackgroundColor(Color.LTGRAY);
+        } else {
+            view.setBackgroundColor(Color.GREEN);
+            trashVal = false;
+            trashImage.setBackgroundColor(Color.LTGRAY);
+            customActive = false;
+            custom.setActivated(false);
+        }
+
+        bioHazard = !bioHazard;
+    }
+
+    public void customOnClick(View view) {
+        biohazard = findViewById(R.id.biohazard);
+        trashImage = findViewById(R.id.trashImage);
+        if (!customActive) {
+            customActive = true;
+            bioHazard = false;
+            biohazard.setBackgroundColor(Color.LTGRAY);
+            trashVal = false;
+            trashImage.setBackgroundColor(Color.LTGRAY);
+        }
+    }
+
+
     @Override
     public void onResume() {
         loadUserNavData();
@@ -373,5 +421,6 @@ catch (NullPointerException e)
     @Override
     public void onBackPressed() { //so cannot get back in after signing out
         //do nothing
+
     }
 }
