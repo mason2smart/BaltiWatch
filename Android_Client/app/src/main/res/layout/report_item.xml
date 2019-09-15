@@ -29,8 +29,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Title"
-                android:textColor="@color/colorText"
-                android:textSize="16sp"
+                android:textColor="@color/colorAccentDarker"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -50,13 +50,15 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginLeft="16dp"
                 />
+
             <Button
                 android:id="@+id/Resolve"
-                android:background="@color/colorAccentDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                />
+                android:background="@color/colorAccentDarker"
+                android:shadowColor="#921B1B1B"
+                android:textColor="@color/colorAccent" />
 
 
         </RelativeLayout>
