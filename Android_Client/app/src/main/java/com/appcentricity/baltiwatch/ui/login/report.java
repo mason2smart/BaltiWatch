@@ -1,6 +1,8 @@
 package com.appcentricity.baltiwatch.ui.login;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
@@ -42,8 +44,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,8 +68,9 @@ public class report extends AppCompatActivity {
     TextView navUname;
     TextView navEmail;
     ImageView navProfPic;
-    String userName="";
-    boolean hasProfPic = false;
+    StorageReference profPicRef;
+    String userName = "";
+    boolean hasProfPic = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,10 +125,11 @@ public class report extends AppCompatActivity {
         };
 
         //inflate header to access elements
-        View header = navigationView.getHeaderView(0);
-        TextView navUname = (TextView) header.findViewById(R.id.navUname);
-        TextView navEmail = header.findViewById(R.id.navUemail);
-        ImageView navProfPic = header.findViewById(R.id.navUserPic);
+        header = navigationView.getHeaderView(0);
+        navUname = (TextView) header.findViewById(R.id.navUname);
+        navEmail = header.findViewById(R.id.navUemail);
+        navProfPic = header.findViewById(R.id.navUserPic);
+        loadUserNavData();
 
 
         navProfPic.setOnClickListener(new View.OnClickListener() {
@@ -221,33 +228,100 @@ public class report extends AppCompatActivity {
             userRewardsRef.update("rewards", FieldValue.increment(points));
         }
     }
-    private void loadUserData(){
-
-        try {
-            db.document("users/"+auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    DocumentSnapshot doc = task.getResult();
+    private void loadUserNavData(){
+try{
+    db.document("users/" + auth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        @Override
+        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            DocumentSnapshot doc = task.getResult();
                     if (doc.contains("hasProfPic")) {
-                        hasProfPic = doc.getBoolean("hasProfPic");
+                        hasProfPic = doc.getBoolean("hasProfPic").booleanValue();
                     }
                     if (doc.contains("userName")) {
-                        userName = doc.getString("userName");
+                        navUname.setText(doc.getString("userName"));
                     }
             }
     });}
-    catch(NullPointerException e)
+catch (NullPointerException e)
             {
+                Log.e("error",e.toString());
                 userName = auth.getUid();
+                navUname.setText(userName);
             }
-        if(hasProfPic){
-            
-        }
-        else
-        {
+        if (hasProfPic){
+             profPicRef = cloudStorage.getReference("users").child("thumb_" + auth.getUid());
 
+                    final long ONE_MEGABYTE = 1024 * 1024;
+                    profPicRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] profPicBytes) {
+                            byteArrayToImageView(navProfPic, profPicBytes);
+                        }
+                    }).addOnFailureListener(new OnFailureListener() { //failure to get compressed profile image
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Log.w("report", "Failed to get compressed pic -- getting original instead");
+                            try {
+                                final File localFile = File.createTempFile("images", "jpg");
+                                profPicRef = cloudStorage.getReference("users").child(auth.getUid());
+                                profPicRef.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                                        navProfPic.setImageBitmap(BitmapFactory.decodeFile(localFile.getAbsolutePath()));
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Log.e("report", "Failed to get save local copy of uncompressed pic - using default instead");
+
+                                        profPicRef = cloudStorage.getReference("users").child(auth.getUid());
+                                        final long ONE_MEGABYTE = 1024 * 1024;
+                                        profPicRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                            @Override
+                                            public void onSuccess(byte[] profPicBytes) {
+                                                byteArrayToImageView(navProfPic, profPicBytes);
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() { //failure to get original profile image
+                                            @Override
+                                            public void onFailure(@NonNull Exception exception) {
+                                                Log.w("report", "Failed to get uncompressed pic -- using default instead");
+
+                                                int defProfPic = getResources().getIdentifier("defaultuser", "drawable", getPackageName());
+                                                navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
+                                            }
+                                        });
+
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                profPicRef = cloudStorage.getReference("users").child(auth.getUid());
+                                final long ONE_MEGABYTE = 1024 * 1024;
+                                profPicRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] profPicBytes) {
+                                        byteArrayToImageView(navProfPic, profPicBytes);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() { //failure to get original profile image
+                                    @Override
+                                    public void onFailure(@NonNull Exception exception) {
+                                        Log.w("report", "Failed to get uncompressed pic -- using default instead");
+
+                                        int defProfPic = getResources().getIdentifier("defaultuser", "drawable", getPackageName());
+                                        navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
+                                    }
+                                });
+                            }
+
+                        }
+                    });
         }
-    }
+        else if(!hasProfPic)
+        {
+            Log.w("report", "has prof pic? "+hasProfPic);
+            int defProfPic = getResources().getIdentifier("defaultuser", "drawable", getPackageName());
+            navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
+        }
 //    private void redeemRewards(int points) {
 //        FirebaseUser usr = FirebaseAuth.getInstance().getCurrentUser();
 //        if (usr != null) {
@@ -256,7 +330,10 @@ public class report extends AppCompatActivity {
 //            userRewardsRef.update("rewards", FieldValue.increment(points));
 //        }
 //    }
-
+    public static void byteArrayToImageView(ImageView view, byte[] data) {
+    Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
+    view.setImageBitmap(bitmap);
+    }
     public void toggleTrash(View view) {
         if (trashVal) {
             view.setBackgroundColor(Color.LTGRAY);
@@ -265,5 +342,10 @@ public class report extends AppCompatActivity {
         }
         trashVal = !trashVal;
 
+    }
+    @Override
+    public void onResume() {
+        loadUserNavData();
+        super.onResume();
     }
 }
