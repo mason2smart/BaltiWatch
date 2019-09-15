@@ -19,15 +19,15 @@
 
     <fragment
         android:id="@+id/nav_verify"
-        android:name="com.appcentricity.baltiwatch.ui.login.ui.slideshow.SlideshowFragment"
+        android:name="com.appcentricity.baltiwatch.ui.login.ui.verification.VerificationFragment"
         android:label="@string/menu_verify"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_verification" />
 
     <fragment
         android:id="@+id/nav_rewards"
-        android:name="com.appcentricity.baltiwatch.ui.login.ui.tools.ToolsFragment"
+        android:name="com.appcentricity.baltiwatch.ui.login.ui.rewards.RewardsFragment"
         android:label="@string/menu_rewards"
-        tools:layout="@layout/fragment_tools" />
+        tools:layout="@layout/fragment_rewards" />
 
     <fragment
         android:id="@+id/nav_share"

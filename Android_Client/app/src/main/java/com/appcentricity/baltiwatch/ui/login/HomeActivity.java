@@ -1,5 +1,6 @@
 package com.appcentricity.baltiwatch.ui.login;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -54,7 +56,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
-public class report extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     FirebaseFirestore db;
@@ -78,7 +80,9 @@ public class report extends AppCompatActivity {
     TextView custom;
     TextView rewardsPts;
     ImageButton biohazard;
+    ImageView customIcon;
     ImageButton trashImage;
+    Button submitBtn;
     int active = Color.argb(0, 71 ,  173, 222);
     int inactive = Color.argb(0, 173, 70, 1);
     @Override
@@ -137,21 +141,21 @@ public class report extends AppCompatActivity {
         navProfPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(report.this, ProfileActivity.class));
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 finish();
             }
         });
         navUname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(report.this, ProfileActivity.class));
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 finish();
             }
         });
         navRewards.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(report.this, ProfileActivity.class));
+                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
                 finish();
             }
         });
@@ -181,7 +185,7 @@ public class report extends AppCompatActivity {
             custom = (TextView) findViewById(R.id.custom);
             addReport(custom.getText().toString());
         } else {
-            Toast selectToast = Toast.makeText(this, "need to select  a type", Toast.LENGTH_LONG);
+            Toast selectToast = Toast.makeText(this, "Select An Issue", Toast.LENGTH_LONG);
             selectToast.show();
         }
     }
@@ -191,7 +195,7 @@ public class report extends AppCompatActivity {
         Report.put("Id", "dummy");
         // Task<Location> loc = fusedLocationClient.getLastLocation();
         fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(report.this, new OnSuccessListener<Location>() {
+                .addOnSuccessListener(HomeActivity.this, new OnSuccessListener<Location>() {
                     @Override
                     public void onSuccess(Location location) {
                         // Got last known location. In some rare situations this can be null.
@@ -231,7 +235,7 @@ public class report extends AppCompatActivity {
                public void onEvent(@Nullable DocumentSnapshot snapshot,
                                    @Nullable FirebaseFirestoreException e) {
                    if (e != null) {
-                       Log.w("report", "Listen failed.", e);
+                       Log.w("HomeActivity", "Listen failed.", e);
                        return;
                    }
 
@@ -240,13 +244,13 @@ public class report extends AppCompatActivity {
                        if (rewardsPts != null)
                        rewardsPts.setText("Rewards Points: " + snapshot.getDouble("rewards").intValue() + " pts");
                    } else {
-                       Log.d("report", "Current data: null");
+                       Log.d("HomeActivity", "Current data: null");
                    }
                }
            });
        }
        catch (NullPointerException e){
-            Log.e("report", "ERROR UPDATING REWARDS: "+e.toString());
+            Log.e("HomeActivity", "ERROR UPDATING REWARDS: "+e.toString());
        }
     }
     private void loadUserNavData(){
@@ -284,7 +288,7 @@ catch (NullPointerException e)
                     }).addOnFailureListener(new OnFailureListener() { //failure to get compressed profile image
                         @Override
                         public void onFailure(@NonNull Exception exception) {
-                            Log.w("report", "Failed to get compressed pic -- getting original instead");
+                            Log.w("HomeActivity", "Failed to get compressed pic -- getting original instead");
                             try {
                                 final File localFile = File.createTempFile("images", "jpg");
                                 profPicRef = cloudStorage.getReference("users").child(auth.getUid());
@@ -296,7 +300,7 @@ catch (NullPointerException e)
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception exception) {
-                                        Log.e("report", "Failed to get save local copy of uncompressed pic - using default instead");
+                                        Log.e("HomeActivity", "Failed to get save local copy of uncompressed pic - using default instead");
 
                                         profPicRef = cloudStorage.getReference("users").child(auth.getUid());
                                         final long ONE_MEGABYTE = 1024 * 1024;
@@ -308,7 +312,7 @@ catch (NullPointerException e)
                                         }).addOnFailureListener(new OnFailureListener() { //failure to get original profile image
                                             @Override
                                             public void onFailure(@NonNull Exception exception) {
-                                                Log.w("report", "Failed to get uncompressed pic -- using default instead");
+                                                Log.w("HomeActivity", "Failed to get uncompressed pic -- using default instead");
 
                                                 int defProfPic = getResources().getIdentifier("defaultuser_trimmed", "drawable", getPackageName());
                                                 navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
@@ -329,7 +333,7 @@ catch (NullPointerException e)
                                 }).addOnFailureListener(new OnFailureListener() { //failure to get original profile image
                                     @Override
                                     public void onFailure(@NonNull Exception exception) {
-                                        Log.w("report", "Failed to get uncompressed pic -- using default instead");
+                                        Log.w("HomeActivity", "Failed to get uncompressed pic -- using default instead");
 
                                         int defProfPic = getResources().getIdentifier("defaultuser_trimmed", "drawable", getPackageName());
                                         navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
@@ -342,7 +346,7 @@ catch (NullPointerException e)
         }
         else if(!hasProfPic)
         {
-            Log.w("report", "has prof pic? "+hasProfPic);
+            Log.w("HomeActivity", "has prof pic? "+hasProfPic);
             int defProfPic = getResources().getIdentifier("defaultuser_trimmed", "drawable", getPackageName());
             navProfPic.setImageResource(defProfPic); //if fail to get compressed or original profile image
         }
@@ -359,16 +363,35 @@ catch (NullPointerException e)
     Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
     view.setImageBitmap(bitmap);
     }
+    @SuppressLint("ResourceAsColor")
     public void toggleTrash(View view) {
         biohazard = findViewById(R.id.biohazard);
         custom = findViewById(R.id.custom);
-        if (trashVal) {
-            view.setBackgroundColor(Color.argb(0, 173, 70, 1));
-        } else {
-            view.setBackgroundColor(Color.argb(0, 71 ,  173, 222));
+        trashImage = findViewById(R.id.trashImage);
+        customIcon = findViewById(R.id.customIcon);
+        submitBtn = findViewById(R.id.submit);
+
+        if (!trashVal) {
+            trashImage.setImageResource(R.drawable.trash_b_s);
             bioHazard = false;
-            biohazard.setBackgroundColor(Color.argb(0, 173, 70, 1));
             customActive = false;
+            biohazard.setImageResource(R.drawable.biohazard);
+            customIcon.setImageResource(R.drawable.warning_custom);
+            custom.setText("Trash Issue");
+            custom.setHint("");
+            submitBtn.setBackgroundColor(Color.parseColor("#d46700"));//PrimaryDark Color
+        } else {
+            submitBtn.setBackgroundColor(Color.parseColor("#BF1F5D78")); //semi transparent accentColorDarker
+            trashImage.setImageResource(R.drawable.trash_b);
+            biohazard.setImageResource(R.drawable.biohazard);
+            customIcon.setImageResource(R.drawable.warning_custom);
+
+            bioHazard = false;
+            //biohazard.setBackgroundColor(Color.argb(0, 173, 70, 1));
+            customActive = false;
+            custom.setText("");
+            custom.setHint("Custom");
+
         }
         trashVal = !trashVal;
         custom.setActivated(false);
@@ -378,30 +401,54 @@ catch (NullPointerException e)
     public void toggleBioHazzard(View view) {
         trashImage = findViewById(R.id.trashImage);
         custom = findViewById(R.id.custom);
+        biohazard = findViewById(R.id.biohazard);
+        customIcon = findViewById(R.id.customIcon);
+        submitBtn = findViewById(R.id.submit);
 
-        if (bioHazard) {
-            view.setBackgroundColor(Color.argb(0, 173, 70, 1));
+
+        if (!bioHazard) {
+            biohazard.setImageResource(R.drawable.biohazard_s);
+            trashImage.setImageResource(R.drawable.trash_b);
+            trashVal=false;
+            customActive=false;
+            custom.setText("Biohazard: Sewage/Gas Issue");
+            custom.setHint("");
+            customIcon.setImageResource(R.drawable.warning_custom);
+            submitBtn.setBackgroundColor(Color.parseColor("#d46700"));
+
+
         } else {
-
-            view.setBackgroundColor(Color.argb(0, 71 ,  173, 222));
+            submitBtn.setBackgroundColor(Color.parseColor("#BF1F5D78")); //semi transparent accentColorDarker
+            customIcon.setImageResource(R.drawable.warning_custom);
+            biohazard.setImageResource(R.drawable.biohazard);
             trashVal = false;
-            trashImage.setBackgroundColor(Color.argb(0, 173, 70, 1));
+            trashImage.setImageResource(R.drawable.trash_b);
             customActive = false;
-            custom.setActivated(false);
+            custom.setText("");
+            custom.setHint("Custom");
         }
-
+        custom.setActivated(false);
         bioHazard = !bioHazard;
     }
 
+    @SuppressLint("ResourceAsColor")
     public void customOnClick(View view) {
         biohazard = findViewById(R.id.biohazard);
         trashImage = findViewById(R.id.trashImage);
+        customIcon = findViewById(R.id.customIcon);
+        custom = findViewById(R.id.custom);
+        submitBtn = findViewById(R.id.submit);
+
         if (!customActive) {
+            custom.setText("");
+            submitBtn.setBackgroundColor(Color.parseColor("#d46700"));//PrimaryDark Color
+            customIcon.setImageResource(R.drawable.warning_custom_s);
+            custom.setHint("Custom");
             customActive = true;
             bioHazard = false;
-            biohazard.setBackgroundColor(Color.argb(1, 173, 70, 1));
+            biohazard.setImageResource(R.drawable.biohazard);
+            trashImage.setImageResource(R.drawable.trash_b);
             trashVal = false;
-            trashImage.setBackgroundColor(Color.argb(1, 173, 70, 1));
         }
     }
 

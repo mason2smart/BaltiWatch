@@ -20,7 +20,7 @@
             android:value="AIzaSyAFlAndQmT94dvHAAGr4SQdDbAjVOSx6YI" />
 
         <activity
-            android:name=".ui.login.report"
+            android:name=".ui.login.HomeActivity"
             android:label="@string/title_activity_report"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

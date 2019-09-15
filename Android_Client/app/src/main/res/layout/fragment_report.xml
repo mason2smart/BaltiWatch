@@ -4,14 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccentDarker">
+    android:background="@color/colorAccentDarker"
+    android:hapticFeedbackEnabled="false">
+
+    <ImageView
+        android:id="@+id/customIcon"
+        android:layout_width="45dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="customOnClick"
+        app:layout_constraintBottom_toBottomOf="@+id/custom"
+        app:layout_constraintEnd_toStartOf="@+id/custom"
+        app:layout_constraintTop_toTopOf="@+id/custom"
+        app:srcCompat="@drawable/warning_custom" />
 
     <Button
         android:id="@+id/submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="133dp"
+        android:layout_height="72dp"
+        android:background="#BF1F5D78"
+        android:hapticFeedbackEnabled="true"
         android:onClick="submit"
         android:text="submit"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -20,43 +35,29 @@
 
     <ImageButton
         android:id="@+id/trashImage"
-        android:background="@color/colorPrimaryDark"
         android:layout_width="154dp"
         android:layout_height="142dp"
         android:layout_marginTop="32dp"
+        android:background="#00D46700"
         android:onClick="toggleTrash"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/trash" />
+        app:srcCompat="@drawable/trash_b" />
 
     <ImageButton
         android:id="@+id/biohazard"
-        android:background="@color/colorPrimaryDark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="53dp"
+        android:background="#00D46700"
         android:onClick="toggleBioHazzard"
         app:layout_constraintEnd_toEndOf="@+id/trashImage"
         app:layout_constraintStart_toStartOf="@+id/trashImage"
         app:layout_constraintTop_toBottomOf="@+id/trashImage"
         app:srcCompat="@drawable/biohazard" />
-
-    <EditText
-        android:id="@+id/custom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:onClick="customOnClick"
-        android:text="Custom"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/biohazard" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
@@ -64,5 +65,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.8112175" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/custom"
+        android:layout_width="304dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="32dp"
+        android:hint="Custom"
+        android:onClick="customOnClick"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/biohazard"
+        app:layout_constraintVertical_bias="0.502" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

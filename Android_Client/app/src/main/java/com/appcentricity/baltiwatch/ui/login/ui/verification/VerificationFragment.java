@@ -1,16 +1,12 @@
-package com.appcentricity.baltiwatch.ui.login.ui.slideshow;
+package com.appcentricity.baltiwatch.ui.login.ui.verification;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,12 +15,10 @@ import com.appcentricity.baltiwatch.ReportItem;
 import com.appcentricity.baltiwatch.ReportViewHolder;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
-public class SlideshowFragment extends Fragment {
+public class VerificationFragment extends Fragment {
 
     RecyclerView recyclerView;
     private FirestoreRecyclerAdapter<ReportItem, ReportViewHolder> adapter;
@@ -32,7 +26,7 @@ public class SlideshowFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        View root = inflater.inflate(R.layout.fragment_verification, container, false);
         recyclerView = root.findViewById(R.id.reports);
         setupRecycler();
         return root;

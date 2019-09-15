@@ -1,4 +1,4 @@
-package com.appcentricity.baltiwatch.ui.login.ui.tools;
+package com.appcentricity.baltiwatch.ui.login.ui.rewards;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
-public class ToolsFragment extends Fragment {
+public class RewardsFragment extends Fragment {
     FirebaseAuth auth;
     TextView rewardsPts;
     private ToolsViewModel toolsViewModel;
@@ -36,11 +36,11 @@ public class ToolsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_tools, container, false);
+        View root = inflater.inflate(R.layout.fragment_rewards, container, false);
 
         recyclerView = root.findViewById(R.id.rewards);
         setupRecyclerView();
-       // View view =  inflater.inflate(R.layout.fragment_tools, container, false);
+       // View view =  inflater.inflate(R.layout.fragment_rewards, container, false);
 
         rewardsPts = root.findViewById(R.id.numPoints);
         updateRewards();
@@ -56,20 +56,20 @@ public class ToolsFragment extends Fragment {
                 public void onEvent(@Nullable DocumentSnapshot snapshot,
                                     @Nullable FirebaseFirestoreException e) {
                     if (e != null) {
-                        Log.w("report", "Listen failed.", e);
+                        Log.w("HomeActivity", "Listen failed.", e);
                         return;
                     }
 
                     if (snapshot != null && snapshot.exists()) { //update rewards on change
                             rewardsPts.setText("Rewards Points: " + snapshot.getDouble("rewards").intValue() + " pts");
                     } else {
-                        Log.d("report", "Current data: null");
+                        Log.d("HomeActivity", "Current data: null");
                     }
                 }
             });
         }
         catch (NullPointerException e){
-            Log.e("report", "ERROR UPDATING REWARDS: "+e.toString());
+            Log.e("HomeActivity", "ERROR UPDATING REWARDS: "+e.toString());
         }
     }
 
