@@ -372,7 +372,7 @@ catch (NullPointerException e)
         if (trashVal) {
             view.setBackgroundColor(Color.LTGRAY);
         } else {
-            view.setBackgroundColor(Color.rgb(153, 255, 205));
+            view.setBackgroundColor(Color.GREEN);
             bioHazard = false;
             biohazard.setBackgroundColor(Color.LTGRAY);
             customActive = false;
@@ -389,7 +389,7 @@ catch (NullPointerException e)
         if (bioHazard) {
             view.setBackgroundColor(Color.LTGRAY);
         } else {
-            view.setBackgroundColor(Color.rgb(153, 255, 205));
+            view.setBackgroundColor(Color.GREEN);
             trashVal = false;
             trashImage.setBackgroundColor(Color.LTGRAY);
             customActive = false;
