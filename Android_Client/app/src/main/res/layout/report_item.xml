@@ -2,26 +2,29 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="0dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
     android:layout_marginStart="16dp"
-    android:layout_marginTop="0dp">
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="0dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="0dp"
+    android:background="@color/colorAccentDarker">
+
     <LinearLayout
-        android:layout_width="match_parent"
         android:id="@+id/list_root"
-        android:paddingTop = "5dp"
-        android:paddingBottom = "5dp"
-        android:background="@color/colorAccentDarker"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/back"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/light"
             android:clickable="true"
             android:focusable="true"
             android:orientation="vertical"
-            android:background="@color/colorPrimaryDark"
             android:padding="16dp">
 
             <TextView
@@ -45,20 +48,19 @@
                 android:id="@+id/Latitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/Longitude"
                 android:layout_below="@id/Type"
-                android:layout_marginTop="4dp"
                 android:layout_marginLeft="16dp"
-                />
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@id/Longitude" />
 
             <Button
                 android:id="@+id/Resolve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:background="@color/colorAccentDarker"
+                android:background="@color/backgroundBlue"
                 android:shadowColor="#921B1B1B"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/light" />
 
 
         </RelativeLayout>
